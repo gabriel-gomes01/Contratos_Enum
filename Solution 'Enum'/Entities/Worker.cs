@@ -9,7 +9,7 @@ namespace Solution__Enum_.Entities
         public WorkerLevel Level { get; set; }
         public double BaseSalary { get; set; }
         public Departament departament { get; set; }
-        public List<HourContract> Contracts { get; set; } = new List<HourContract>;
+        public List<HourContract> Contracts { get; set; } = new List<HourContract>();
 
         public Worker(){}
 
@@ -29,6 +29,20 @@ namespace Solution__Enum_.Entities
         public void RemoveContract(HourContract contract)
         {
             Contracts.Remove(contract);
+        }
+
+        public double Income(int year, int mouth)
+        {
+            double sum = BaseSalary;
+
+            foreach(HourContract contract in Contracts)
+            {
+                if (contract.Date.Year == year && contract.Date.Month == mouth)
+                {
+                    sum += contract.TotalValue();
+                }
+            }
+            return sum;
         }
     }
 }
